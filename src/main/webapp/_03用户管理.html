@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>用户新增</title>
+	<script language="javascript" src="js/jquery-1.11.2.js"></script>
+	<script language="javascript">
+		$(function(){
+			// 新增操作 用户填写了用户名 邮箱 电话之后,点击"提交"按钮,就要获取用户填写的数据,并且将数据新增到下面的表格中
+			$("#btn_submit").click(function (){
+				// 1 获取填写的信息
+				var username = $("#username").val();
+				var email = $("#email").val();
+				var tel = $("#tel").val();
+
+				// 清除输入框内容
+				$("#username,#email,#tel").val('');
+
+				// 2 将获取的信息,新增到表格中 tr 表示行  td表示列
+				// 创建行  tr
+				var tr = $("<tr>");
+				// 创建td并赋值
+				var td1 = $("<td>").text(username);
+				var td2 = $("<td>").text(email);
+				var td3 = $("<td>").text(tel);
+				// 处理删除按钮
+				var btn = $("<button>");	// <button> == <input type="button"/>
+				btn.text("删除");
+				// 删除按钮也是单独的一个列,所以要创建一个td
+				var td4 = $("<td>");
+				td4.append(btn);
+				// 将td放到tr下面  append()添加元素的意思 a.append(b) 就是把b放到a里面
+				tr.append(td1);	// 说明将td1这个td标签放到tr标签里面
+				tr.append(td2);
+				tr.append(td3);
+				tr.append(td4);
+				// 将tr放到tbody里面
+				$("#userTbody").append(tr);
+
+				btn.click(function (){
+					$(this).parents("tr").remove();
+				})
+
+			})
+			$("#btn_removeAll").click(function (){
+				$("#userTbody").empty();
+			})
+		});
+	</script>
+</head>
+<body>
+
+	<form name="userForm">
+		<center>
+		用户录入<br/>
+		用户名:<input id="username" name="username" type="text"/>
+		E-mail:<input  id="email" name="email" type="text"/>
+		电话:<input id="tel" name="tel" type="text"/>
+		
+		<input type="button" value="提交" id="btn_submit"/>
+		<input type="button" value="删除所有" id="btn_removeAll"/>
+		
+		</center>
+	</form>
+	<hr/>
+	<table border="1" align="center"> 
+		<thead>
+			<tr>
+				<th>用户名</th>
+				<th>E-mail</th>
+				<th>电话</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="userTbody"></tbody>
+	</table>
+
+</body>
+</html>

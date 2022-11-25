@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajaxLogin</title>
+    <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+    <script type="text/javascript">
+        function login() {
+            // 发送ajax请求的步骤
+            // 1、获取ajax对象
+            var xhr = getXhr();
+
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // 2、open()准备发送请求
+            xhr.open("get","/ajaxLogin?username="+username+"&password="+password);
+
+            // 3、监听readyState状态的变化
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var responseText = xhr.responseText;
+                    if (responseText === "success") {
+                        document.getElementById("msg").innerText="登录成功"
+                    } else {
+                        document.getElementById("msg").innerText = "登陆失败!";
+                    }
+                }
+            }
+            // 4 发送请求
+            xhr.send();
+        }
+
+        // 创建ajax对象
+        function getXhr() {
+            var xhr;
+            try {
+                xhr = new XMLHttpRequest();
+            } catch (e) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            return xhr;
+        }
+    </script>
+</head>
+<body>
+<!--ajax请求不需要给form设置跳转路径-->
+<form>
+    用户名:<input type="text" name="username" id="username"/><br/>
+    密码:<input type="password" name="password" id="password"/><br/>
+    <input type="button" value="登陆" onclick="login()"/>
+</form>
+<span style="color: red" id="msg"></span>
+</body>
+</html>

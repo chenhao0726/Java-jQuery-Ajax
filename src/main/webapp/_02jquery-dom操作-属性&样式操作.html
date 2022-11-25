@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>_02jquery-dom操作-属性&样式操作</title>
+    <!--导入jquery.js-->
+    <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+    <style>
+        .acls{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function (){
+            // 属性操作 attr() data() 都是用来设置或者获取属性的  removeAttr() 删除属性
+            // 设置属性 attr("属性名","属性值")  data("属性名","属性值")
+            // 获取属性 attr("属性名")  data("属性名")
+            // 样式操作 css() - 设置样式的 相当于dom对象的.style.样式名，addClass()，removeClass()
+
+            // 案例演示
+            // 当鼠标移入a标签的时候,要添加背景色  如果鼠标移出  背景色就消失  当鼠标点击a标签的时候,要清除下划线,字体颜色要变为黑色
+            // 获取所有的a标签
+            var $as = $("a");
+            // 循环得到的a标签,给每一个a标签绑定事件
+            for(var i=0;i<$as.length;i++){
+                var a = $as[i];     // jquery对象.get()/jquery对象[i] 获取的是dom对象
+                $(a).mouseover(function (){
+                    $(this).css("background","cyan");
+                })
+                $(a).mouseout(function (){
+                    $(this).css("background","white");
+                })
+                $(a).click(function (){
+                    $(this).addClass("acls");
+                })
+            }
+            // attr() data()的区别
+            // 设置属性  attr()方法设置的属性是可以通过f12查看的到的,data()设置的,是看不到的
+            $("#myDiv").attr("age",1);
+            $("#myDiv").data("name","zhangsan");
+            console.log($("#myDiv").attr("age"));
+            console.log($("#myDiv").data("name"))
+            // 获取属性的时候 attr()获取属性时,直接写属性名就可以了  data()获取属性时,只能获取以data-开头的属性
+            // 通过attr()获取的属性值,都是字符串  通过data()获取的属性值,它会默认帮我们转换类型,如果转不了,那么就是字符串
+            console.debug(typeof $('#d1').attr('data-person'));
+            console.debug(typeof $('#d1').attr('data-name'));
+            console.debug(typeof $('#d1').attr('data-age'));
+            console.debug(typeof $('#d1').attr('data-sex'));//获取出来都是字符串
+            console.debug("====================================");
+            //获取出来出来的值，会自动转换成相应的类型。能转就转，不能转就以字符串的形式存在
+            console.debug(typeof $('#d1').data('person'));
+            console.debug(typeof $('#d1').data('name'));
+            console.debug(typeof $('#d1').data('age'));
+            console.debug(typeof $('#d1').data('sex'));
+        })
+    </script>
+</head>
+<body>
+    <a href="#">File</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="#">Edit</a>
+
+    <div id="myDiv">这是div标签</div>
+
+    <input type="text" id="d1"
+           username="zhagnsan"
+           data-person='{"id":1,"name":"tom","address":"四川成都"}'
+           data-name="赵子龙"
+           data-age="22"
+           data-sex="true" />
+</body>
+</html>

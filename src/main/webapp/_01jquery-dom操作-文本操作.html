@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-dom操作-文本操作</title>
+    <!--导入jquery.js-->
+    <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+    <script type="text/javascript">
+        $(function (){
+            // 文本操作 - 标签中的文本信息
+            // js中dom操作-文本操作:innerText innerHTML value
+            // jquery的文本操作
+            var myDiv = $("#myDiv");
+            // text()就相当于dom对象的innerText  只获取当前节点以及后代节点中的所有的文本信息
+            // html()就相当于dom对象的innerHTML 它是获取当前节点以及后代节点中所有的信息,包括html代码和css
+            console.log(myDiv.text());
+            console.log(myDiv.html());
+
+            // text()会原样输出到页面上,不会解析html代码
+            // html() 会解析之后再输出到页面上
+            $("#myDiv1").text("<span style='color: red;'>这是个span标签1</span>");
+            $("#myDiv2").html("<span style='color: red;'>这是个span标签2</span>");
+            // 单标签(有value属性的标签 一般都是form表单下的表单元素标签 input select textarea)
+            // 获取值
+            console.log($("#username").val());
+            // 设置值
+            $("#username").val("Tome");
+        })
+    </script>
+</head>
+<body>
+    <div id="myDiv">
+        这是个div标签
+        <p>我是个p标签</p>
+    </div>
+    <div id="myDiv1"></div>
+    <div id="myDiv2"></div>
+
+    <input type="text" id="username" value="name"/>
+</body>
+</html>

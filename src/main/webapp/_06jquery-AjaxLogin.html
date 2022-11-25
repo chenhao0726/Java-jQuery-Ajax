@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-AjaxLogin</title>
+    <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+    <script type="text/javascript">
+        function login() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            $.ajax({
+                type: "get",
+                url: "/jqueryajax",
+                data: {"username":username,"password":password},
+                success: function (msg) {
+                    console.log(msg)
+                    if (msg === "success"){
+                        $("#msg").text("登录成功！");
+                    } else {
+                        $("#msg").text("登录失败！");
+                    }
+                    // console.log(msg)
+                    // if (msg.success){
+                    //     $("#msg").text("登录成功！");
+                    // } else {
+                    //     $("#msg").text("登录失败！");
+                    // }
+                },
+                dataType: "json"  // 后端返回的数据类型,如果是json 那么后端就要返回json格式的字符串,它会自动将字符串转为json对象,如果不加,就默认是text
+            });
+
+            // 第一个参数是 url  第二个参数:传参  第三个参数:回调函数  第4个参数:dataType
+            $.get("/jqueryAjaxLogin",{"username":username,"password":password},function (msg){
+                if(msg.success){
+                    $("#msg").text("登陆成功!")
+                }else{
+                    $("#msg").text("登陆失败!")
+                }
+            },"json")
+        }
+    </script>
+</head>
+<body>
+<!--ajax请求不需要给form设置跳转路径-->
+<form>
+    用户名:<input type="text" name="username" id="username"/><br/>
+    密码:<input type="password" name="password" id="password"/><br/>
+    <input type="button" value="登陆" onclick="login()"/>
+</form>
+<span style="color: red" id="msg"></span>
+</body>
+</html>
